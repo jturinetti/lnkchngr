@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "Autofac.Mvc5": "3.3.4",
+    "Autofac.Extensions.DependencyInjection": "4.0.0-rc3-309",
     "BundlerMinifier.Core": "2.1.258",
     "Microsoft.AspNetCore.Diagnostics": "1.0.0",
     "Microsoft.AspNetCore.Mvc": "1.0.0",
