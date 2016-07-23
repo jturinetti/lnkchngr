@@ -1,15 +1,21 @@
 ﻿@model LinkChanger.Models.UrlModel
 
 @{
-    ViewData["Title"] = "Result Page";
+    ViewData["Title"] = "Results";
 }
 
-<div>
-    <p>
-        The URL you input was: @Model.Url
-    </p>
-    <p>
-        Your generated URL is: @Model.MappedUrl
-    </p>
+<div class="row">
+    <div class="col-sm-12">
+        <p>
+            The URL you input was: <a href="@Model.Url">@Model.Url</a>
+        </p>
+    </div>    
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <p>
+            Your generated URL is: <a href="@Model.MappedUrl">@Model.MappedUrl</a>
+        </p>
+    </div>
 </div>
     
