@@ -8,6 +8,7 @@ using LinkChanger.Services;
 using LinkChanger.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -47,7 +48,9 @@ namespace LinkChanger
             // be sure to keep a reference to it as a property or field.
 
             // TODO: make this dynamic with factory of some sort
+            builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>();
             builder.RegisterType<HashUrlGenerationStrategy>().As<IUrlGenerationStrategy>();
+            builder.RegisterType<UrlValidator>().As<IUrlValidator>();
             builder.RegisterType<DefaultUrlGenerator>().As<IUrlGenerator>();
             builder.Populate(services);
             this.ApplicationContainer = builder.Build();

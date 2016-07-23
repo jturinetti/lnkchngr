@@ -7,6 +7,6 @@ namespace LinkChanger.Services.Interfaces
 {
     public interface IUrlGenerator
     {
-        Uri GenerateUrl();
+        Uri GenerateUrl(Uri url);
     }
 }

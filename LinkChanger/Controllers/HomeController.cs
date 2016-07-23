@@ -11,10 +11,12 @@ namespace LinkChanger.Controllers
     public class HomeController : Controller
     {
         private readonly IUrlGenerator _generator;
+        private readonly IUrlValidator _validator;
 
-        public HomeController(IUrlGenerator generator)
+        public HomeController(IUrlGenerator generator, IUrlValidator validator)
         {
             _generator = generator;
+            _validator = validator;
         }
 
         public IActionResult Index()
@@ -27,11 +29,25 @@ namespace LinkChanger.Controllers
             return View();
         }
 
+        [HttpPost]
         public IActionResult Post(UrlModel model)
         {
-            // TODO
+            var validatedUri = _validator.Validate(model.Url);
 
-            return null;
+            var result = _generator.GenerateUrl(validatedUri);
+            model.MappedUrl = result.AbsoluteUri;
+
+            return RedirectToAction("Result", model);
+        }
+
+        public IActionResult Result(UrlModel model)
+        {
+            if (string.IsNullOrEmpty(model?.MappedUrl))
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View(model);
         }
     }
 }

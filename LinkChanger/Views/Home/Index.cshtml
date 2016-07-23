@@ -4,17 +4,12 @@
     ViewData["Title"] = "Home Page";
 }
 
+
 @using (Html.BeginForm("Post", "Home", FormMethod.Post))
 {
-    <div>
-        <p>
-            Enter a URL. Any URL.
-        </p>
-    </div>
-    <div>
-        <input type="text" asp-for="@Model.Url" />
-    </div>
-    <div>
-        <input type="submit" value="GO" class="btn btn-primary" />
-    </div>
+    <fieldset class="form-group">        
+        <label for="urlInput">Enter a URL. Any URL.</label>            
+        <input id="urlInput" type="text" asp-for="@Model.Url" placeholder="Enter URL" class="form-control" />        
+        <input type="submit" value="GO" class="btn btn-primary" />        
+    </fieldset>
 }
