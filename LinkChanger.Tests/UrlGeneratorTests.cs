@@ -6,7 +6,6 @@ namespace LinkChanger.Tests
     [TestFixture]
     public class UrlGeneratorTests
     {
-        
         [Test]
         public void UrlGenerator_GenerateUrl_NullArgument()
         {

@@ -36,7 +36,7 @@ namespace LinkChanger.Services
             }
             else
             {
-                // WHAT DO HERE??
+                // WHAT DO HERE?? (should never happen)
                 throw new InvalidOperationException();
             }
         }
