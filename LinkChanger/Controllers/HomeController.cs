@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LinkChanger.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LinkChanger.Controllers
@@ -11,25 +12,18 @@ namespace LinkChanger.Controllers
         public IActionResult Index()
         {
             return View();
-        }
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
+        }        
 
         public IActionResult Error()
         {
             return View();
+        }
+
+        public IActionResult Post(UrlModel model)
+        {
+            // TODO
+
+            return null;
         }
     }
 }
