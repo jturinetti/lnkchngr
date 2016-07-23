@@ -8,9 +8,11 @@ namespace LinkChanger.Services
 {
     public class DefaultUrlGenerator : IUrlGenerator
     {
-        public DefaultUrlGenerator()
+        private readonly IUrlGenerationStrategy _strategy;
+
+        public DefaultUrlGenerator(IUrlGenerationStrategy strategy)
         {
-            // TODO
+            _strategy = strategy;
         }
 
         public Uri GenerateUrl()
