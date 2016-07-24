@@ -3,7 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "LinkChanger", "LinkChanger\LinkChanger.xproj", "{A119E698-0383-47F0-9B15-B57ECB8DFEC1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D066626E-7881-436D-A539-AC7ED0BBEA2F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1BBFA38A-25B0-482E-A50D-BFB634EA132E}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "LinkChanger", "src\LinkChanger\LinkChanger.xproj", "{2EE1C54C-DB99-4F11-8004-20FBF6FB3A9B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{30373274-A91F-4465-B7F0-18710D382D00}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,12 +20,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A119E698-0383-47F0-9B15-B57ECB8DFEC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A119E698-0383-47F0-9B15-B57ECB8DFEC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A119E698-0383-47F0-9B15-B57ECB8DFEC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A119E698-0383-47F0-9B15-B57ECB8DFEC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EE1C54C-DB99-4F11-8004-20FBF6FB3A9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EE1C54C-DB99-4F11-8004-20FBF6FB3A9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EE1C54C-DB99-4F11-8004-20FBF6FB3A9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EE1C54C-DB99-4F11-8004-20FBF6FB3A9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2EE1C54C-DB99-4F11-8004-20FBF6FB3A9B} = {D066626E-7881-436D-A539-AC7ED0BBEA2F}
 	EndGlobalSection
 EndGlobal

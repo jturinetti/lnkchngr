@@ -7,17 +7,17 @@
 
 @using (Html.BeginForm("Post", "Home", FormMethod.Post))
 {
-    <fieldset class="form-group">        
+    <fieldset class="form-group">
         <div class="row">
             <div class="col-sm-12">
                 <label for="urlInput">Enter a URL. Any URL.</label>
-                <input id="urlInput" type="text" asp-for="@Model.Url" placeholder="Enter URL" class="form-control" />        
+                <input id="urlInput" type="text" asp-for="@Model.Url" placeholder="Enter URL" class="form-control" />
             </div>
         </div>
         <div class="row">
             <div class="col-sm-12">
                 <button type="submit" class="btn btn-primary">GO</button>
             </div>
-        </div>        
+        </div>
     </fieldset>
 }

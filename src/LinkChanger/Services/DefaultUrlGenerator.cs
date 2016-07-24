@@ -25,14 +25,14 @@ namespace LinkChanger.Services
             // TODO: incorporate database operations            
 
             if (_httpContextProvider.HttpContext.Request.Host.HasValue)
-            {                
+            {
                 var uriBuilder = new UriBuilder(_httpContextProvider.HttpContext.Request.Scheme,
                     _httpContextProvider.HttpContext.Request.Host.Host,
                     (_httpContextProvider.HttpContext.Request.Host.Port.HasValue ? _httpContextProvider.HttpContext.Request.Host.Port.Value : 80),
                     generatedUrlModel.MappedUrlSuffix);
 
                 return uriBuilder.Uri;
-                
+
             }
             else
             {
