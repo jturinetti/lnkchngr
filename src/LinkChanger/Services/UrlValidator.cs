@@ -10,8 +10,26 @@ namespace LinkChanger.Services
     {
         public Uri Validate(string url)
         {
-            // TODO: add ACTUAL validation
-            return new Uri(url);
+            if (url == null)
+            {
+                throw new ArgumentNullException("url");
+            }
+
+            if (!url.StartsWith("http"))
+            {
+                throw new ArgumentException("URL must begin with http.", "url");
+            }
+
+            Uri uri;
+
+            if (Uri.TryCreate(url, UriKind.Absolute, out uri))
+            {
+                return uri;
+            }
+            else
+            {
+                throw new ArgumentException("Invalid URL format.", "url");
+            }            
         }
     }
 }
