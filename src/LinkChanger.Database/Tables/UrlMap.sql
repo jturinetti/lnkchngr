@@ -1,0 +1,12 @@
+﻿CREATE TABLE [dbo].[UrlMap]
+(
+	[Id] INT IDENTITY(1, 1) NOT NULL,
+	[SourceUrl]	NVARCHAR(MAX) NOT NULL,
+	[TargetUrl] NVARCHAR(MAX) NOT NULL,
+	[UrlHash] INT NOT NULL,
+	CONSTRAINT PK_UrlMap_Id PRIMARY KEY CLUSTERED (Id)
+)
+GO
+
+CREATE UNIQUE INDEX UX_UrlMap_UrlHash ON [dbo].[UrlMap] (UrlHash)
+GO

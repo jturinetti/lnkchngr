@@ -16,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{30373274-A
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "LinkChanger.Tests", "test\LinkChanger.Tests\LinkChanger.Tests.xproj", "{89391E53-604C-4E33-972B-9EDA41BB369C}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "LinkChanger.Database", "src\LinkChanger.Database\LinkChanger.Database.sqlproj", "{83623456-5F1F-4DF2-A4C4-9631033D6891}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,12 @@ Global
 		{89391E53-604C-4E33-972B-9EDA41BB369C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89391E53-604C-4E33-972B-9EDA41BB369C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89391E53-604C-4E33-972B-9EDA41BB369C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83623456-5F1F-4DF2-A4C4-9631033D6891}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83623456-5F1F-4DF2-A4C4-9631033D6891}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83623456-5F1F-4DF2-A4C4-9631033D6891}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{83623456-5F1F-4DF2-A4C4-9631033D6891}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83623456-5F1F-4DF2-A4C4-9631033D6891}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83623456-5F1F-4DF2-A4C4-9631033D6891}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -37,5 +45,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{2EE1C54C-DB99-4F11-8004-20FBF6FB3A9B} = {D066626E-7881-436D-A539-AC7ED0BBEA2F}
 		{89391E53-604C-4E33-972B-9EDA41BB369C} = {30373274-A91F-4465-B7F0-18710D382D00}
+		{83623456-5F1F-4DF2-A4C4-9631033D6891} = {D066626E-7881-436D-A539-AC7ED0BBEA2F}
 	EndGlobalSection
 EndGlobal
