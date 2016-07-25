@@ -20,7 +20,10 @@
     "Microsoft.Extensions.Logging.Debug": "1.0.0",
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
-    "Autofac.Extensions.DependencyInjection": "4.0.0-rc3-309"
+    "Autofac.Extensions.DependencyInjection": "4.0.0-rc3-309",
+    "BundlerMinifier.Core": "2.1.258",
+    "LinkChanger.Data": "1.0.0-*",
+    "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0"
   },
 
   "tools": {

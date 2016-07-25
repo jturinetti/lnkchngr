@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using LinkChanger.Data.Contexts;
 using LinkChanger.Services;
 using LinkChanger.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -39,6 +41,9 @@ namespace LinkChanger
             // Add framework services.
             services.AddMvc();
 
+            // Register EF.
+            services.AddDbContext<LinkChangerContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             // Create the container builder.
             var builder = new ContainerBuilder();
 
@@ -46,10 +51,9 @@ namespace LinkChanger
             // the collection, and build the container. If you want
             // to dispose of the container at the end of the app,
             // be sure to keep a reference to it as a property or field.
-
-            // TODO: make this dynamic with factory of some sort
-            builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>();
-            builder.RegisterType<HashUrlGenerationStrategy>().As<IUrlGenerationStrategy>();
+            
+            builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>();            
+            builder.RegisterType<HashUrlGenerationStrategy>().As<IUrlGenerationStrategy>(); // TODO: make this dynamic with factory of some sort
             builder.RegisterType<UrlValidator>().As<IUrlValidator>();
             builder.RegisterType<DefaultUrlGenerator>().As<IUrlGenerator>();
             builder.Populate(services);
