@@ -43,6 +43,9 @@ namespace LinkChanger
 
             // Register EF.
             services.AddDbContext<LinkChangerContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            
+            // Register HttpContext (details: https://github.com/aspnet/Announcements/issues/190)
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             // Create the container builder.
             var builder = new ContainerBuilder();
@@ -51,8 +54,6 @@ namespace LinkChanger
             // the collection, and build the container. If you want
             // to dispose of the container at the end of the app,
             // be sure to keep a reference to it as a property or field.
-            
-            builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>();            
             builder.RegisterType<HashUrlGenerationStrategy>().As<IUrlGenerationStrategy>(); // TODO: make this dynamic with factory of some sort
             builder.RegisterType<UrlValidator>().As<IUrlValidator>();
             builder.RegisterType<DefaultUrlGenerator>().As<IUrlGenerator>();
