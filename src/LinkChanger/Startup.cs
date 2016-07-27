@@ -56,7 +56,7 @@ namespace LinkChanger
             // be sure to keep a reference to it as a property or field.
             builder.RegisterType<HashUrlGenerationStrategy>().As<IUrlGenerationStrategy>(); // TODO: make this dynamic with factory of some sort
             builder.RegisterType<UrlValidator>().As<IUrlValidator>();
-            builder.RegisterType<DefaultUrlGenerator>().As<IUrlGenerator>();
+            builder.RegisterType<UrlEngine>().As<IUrlEngine>();
             builder.Populate(services);
             this.ApplicationContainer = builder.Build();
 

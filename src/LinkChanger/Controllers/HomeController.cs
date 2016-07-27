@@ -10,19 +10,28 @@ namespace LinkChanger.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IUrlGenerator _generator;
+        private readonly IUrlEngine _engine;
         private readonly IUrlValidator _validator;
 
-        public HomeController(IUrlGenerator generator, IUrlValidator validator)
+        public HomeController(IUrlEngine engine, IUrlValidator validator)
         {
-            _generator = generator;
+            _engine = engine;
             _validator = validator;
-        }
+        }        
 
-        public IActionResult Index()
+        public IActionResult Index(string id)
         {
+            if (!string.IsNullOrEmpty(id))
+            {
+                // lookup URL
+                var url = _engine.LookupUrl(id);
+
+                // redirect!
+                return Redirect(url.AbsoluteUri);
+            }            
+
             return View();
-        }
+        }        
 
         public IActionResult Error()
         {
@@ -34,7 +43,7 @@ namespace LinkChanger.Controllers
         {
             var validatedUri = _validator.Validate(model.Url);
 
-            var result = _generator.GenerateUrl(validatedUri);
+            var result = _engine.GenerateUrl(validatedUri);
             model.MappedUrl = result.AbsoluteUri;
 
             return RedirectToAction("Result", model);

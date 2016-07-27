@@ -13,6 +13,7 @@ namespace LinkChanger.Data.Contexts
             : base(options)
         { }
 
-        public DbSet<UrlMap> UrlMaps { get; set; }
+        
+        public DbSet<UrlMap> UrlMaps { get; set; }        
     }
 }

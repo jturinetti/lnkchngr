@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 
 namespace LinkChanger.Services.Interfaces
 {
-    public interface IUrlGenerator
+    public interface IUrlEngine
     {
         Uri GenerateUrl(Uri url);
+
+        Uri LookupUrl(string map);
     }
 }
