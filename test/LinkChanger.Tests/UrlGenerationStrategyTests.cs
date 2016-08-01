@@ -13,7 +13,8 @@ namespace LinkChanger.Tests
         [Fact]
         public void HashUrlGenerationStrategy_NullArgument()
         {
-            IUrlGenerationStrategy strategy = new HashUrlGenerationStrategy();
+            IHasher hasher = new Hasher();
+            IUrlGenerationStrategy strategy = new HashUrlGenerationStrategy(hasher);
             Assert.Throws<ArgumentNullException>(() => strategy.GenerateUniqueUrlMap(null));
         }
 
@@ -23,10 +24,11 @@ namespace LinkChanger.Tests
         [InlineData("https://www.facebook.com/")]
         public void HashUrlGenerationStrategy_ValidUrl(string url)  
         {
+            IHasher hasher = new Hasher();
             var uri = new Uri(url);
-            var hash = uri.AbsoluteUri.GetHashCode();
+            var hash = hasher.HashMe(uri.AbsoluteUri);
 
-            IUrlGenerationStrategy strategy = new HashUrlGenerationStrategy();            
+            IUrlGenerationStrategy strategy = new HashUrlGenerationStrategy(hasher);
 
             var result = strategy.GenerateUniqueUrlMap(uri);
 

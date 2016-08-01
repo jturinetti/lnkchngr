@@ -9,6 +9,13 @@ namespace LinkChanger.Services
 {
     public class HashUrlGenerationStrategy : IUrlGenerationStrategy
     {
+        private readonly IHasher _hasher;
+
+        public HashUrlGenerationStrategy(IHasher hasher)
+        {
+            _hasher = hasher;
+        }
+
         public UrlGenerationStrategyModel GenerateUniqueUrlMap(Uri uri)
         {
             if (uri == null)
@@ -21,11 +28,11 @@ namespace LinkChanger.Services
                 InputUrl = uri
             };
 
-            var hashCode = uri.AbsoluteUri.GetHashCode();
+            var hashCode = _hasher.HashMe(uri.AbsoluteUri);
 
             model.SourceUrlHash = hashCode;
             model.UrlMap = hashCode.ToString();
-            model.UrlMapHash = hashCode.ToString().GetHashCode();
+            model.UrlMapHash = _hasher.HashMe(hashCode.ToString());            
 
             return model;
         }

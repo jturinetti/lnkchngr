@@ -1,0 +1,28 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using LinkChanger.Services.Interfaces;
+
+namespace LinkChanger.Services
+{
+    public class Hasher : IHasher
+    {
+        public int HashMe(string value)
+        {
+            var hash = 0;            
+
+            if (!string.IsNullOrEmpty(value))
+            {
+                var counter = 1;
+                foreach (var c in value)
+                {
+                    hash = hash + 23 + (counter * Convert.ToInt32(c));
+                    counter++;
+                }
+            }
+
+            return hash;
+        }
+    }
+}

@@ -12,13 +12,16 @@ namespace LinkChanger.Services
     {
         private readonly IUrlGenerationStrategy _strategy;
         private readonly IHttpContextAccessor _httpContextProvider;
+        private readonly IHasher _hasher;
         private readonly LinkChangerContext _context;
+        
 
-        public UrlEngine(IUrlGenerationStrategy strategy, IHttpContextAccessor httpContextProvider, LinkChangerContext context)
+        public UrlEngine(IUrlGenerationStrategy strategy, IHttpContextAccessor httpContextProvider, IHasher hasher, LinkChangerContext context)
         {
             _strategy = strategy;
             _httpContextProvider = httpContextProvider;
-            _context = context;
+            _hasher = hasher;
+            _context = context;            
         }
 
         public Uri GenerateUrl(Uri url)
@@ -59,7 +62,7 @@ namespace LinkChanger.Services
 
         public Uri LookupUrl(string map)
         {
-            var mapHash = map.GetHashCode();
+            var mapHash = _hasher.HashMe(map);            
 
             var result = _context.UrlMaps.FirstOrDefault(u => u.TargetUrlMapHash == mapHash);
             
