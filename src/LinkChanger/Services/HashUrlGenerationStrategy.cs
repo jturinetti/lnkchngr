@@ -23,8 +23,9 @@ namespace LinkChanger.Services
 
             var hashCode = uri.AbsoluteUri.GetHashCode();
 
-            model.HashCode = hashCode;
-            model.MappedUrlSuffix = hashCode.ToString();
+            model.SourceUrlHash = hashCode;
+            model.UrlMap = hashCode.ToString();
+            model.UrlMapHash = hashCode.ToString().GetHashCode();
 
             return model;
         }

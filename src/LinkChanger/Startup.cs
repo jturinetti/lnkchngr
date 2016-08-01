@@ -85,8 +85,13 @@ namespace LinkChanger
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "redirect",
+                    template: "{id}",
+                    defaults: new { controller = "Home", action = "Index" });
+
+                routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/");
             });
 
             // If you want to dispose of resources that have been resolved in the

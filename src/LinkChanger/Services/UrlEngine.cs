@@ -26,47 +26,53 @@ namespace LinkChanger.Services
             // generate unique url mapping
             var generatedUrlModel = _strategy.GenerateUniqueUrlMap(url);
 
-            // build target url
-            var uriBuilder = new UriBuilder(_httpContextProvider.HttpContext.Request.Scheme,
-                    _httpContextProvider.HttpContext.Request.Host.Host,
-                    (_httpContextProvider.HttpContext.Request.Host.Port.HasValue ? _httpContextProvider.HttpContext.Request.Host.Port.Value : 80),
-                    generatedUrlModel.MappedUrlSuffix);            
-
-            // very simple, dumb method to get data into database
-            var existingMappedUrls = _context.UrlMaps.Where(u => u.UrlHash == generatedUrlModel.HashCode).ToList();            
-            if (existingMappedUrls.Any())
-            {
-                // ensure existing row is the same as the generated model (it should be?)
-                if (existingMappedUrls.First().SourceUrl != generatedUrlModel.InputUrl.AbsoluteUri)
-                {
-                    throw new Exception("NOT EQUAL VALUES!");
-                }
-            }
-            else
+            // see if url already exists in database based on generated hash
+            var existingRecord = _context.UrlMaps.FirstOrDefault(u => u.SourceUrlMapHash == generatedUrlModel.SourceUrlHash);
+            if (existingRecord == null)
             {
                 _context.UrlMaps.Add(new Data.Entities.UrlMap
                 {
                     SourceUrl = generatedUrlModel.InputUrl.AbsoluteUri,
-                    TargetUrl = uriBuilder.Uri.AbsoluteUri,
-                    UrlHash = generatedUrlModel.HashCode
+                    SourceUrlMapHash = generatedUrlModel.SourceUrlHash,
+                    TargetUrlMap = generatedUrlModel.UrlMap,
+                    TargetUrlMapHash = generatedUrlModel.UrlMapHash,
+                    Created = DateTime.UtcNow,
+                    LastAccessed = DateTime.MinValue
                 });
 
                 _context.SaveChanges();
             }
+            else
+            {
+                existingRecord.LastAccessed = DateTime.UtcNow;
+                _context.SaveChanges();
+            }
 
-            return uriBuilder.Uri;            
+            // build target url
+            var uriBuilder = new UriBuilder(_httpContextProvider.HttpContext.Request.Scheme,
+                    _httpContextProvider.HttpContext.Request.Host.Host,
+                    (_httpContextProvider.HttpContext.Request.Host.Port.HasValue ? _httpContextProvider.HttpContext.Request.Host.Port.Value : 80),
+                    generatedUrlModel.UrlMap);
+
+            return uriBuilder.Uri;
         }
 
         public Uri LookupUrl(string map)
         {
-            // another dumb, simple way of handling this since I'm too tired to think right now
-            var firstResult = _context.UrlMaps.FirstOrDefault(u => u.TargetUrl.EndsWith(map));
-            if (firstResult == null)
+            var mapHash = map.GetHashCode();
+
+            var result = _context.UrlMaps.FirstOrDefault(u => u.TargetUrlMapHash == mapHash);
+            
+            if (result == null)
             {
-                throw new Exception("URL NOT FOUND");
+                // TODO: make this better?
+                return null;
             }
 
-            return new Uri(firstResult.SourceUrl);
-        }
+            result.LastAccessed = DateTime.UtcNow;
+            _context.SaveChanges();
+
+            return new Uri(result.SourceUrl);
+        }       
     }
 }

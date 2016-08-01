@@ -31,9 +31,9 @@ namespace LinkChanger.Tests
             var result = strategy.GenerateUniqueUrlMap(uri);
 
             Assert.NotNull(result);
-            Assert.Equal(hash, result.HashCode);
+            Assert.Equal(hash, result.SourceUrlHash);
             Assert.Equal(uri.AbsoluteUri, result.InputUrl.AbsoluteUri);
-            Assert.EndsWith(hash.ToString(), result.MappedUrlSuffix);
+            Assert.EndsWith(hash.ToString(), result.UrlMap);
         }
     }
 }
