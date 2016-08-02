@@ -6,7 +6,7 @@ using LinkChanger.Services.Interfaces;
 
 namespace LinkChanger.Services
 {
-    public class Hasher : IHasher
+    public class AsciiHasher : IHasher
     {
         public int HashMe(string value)
         {

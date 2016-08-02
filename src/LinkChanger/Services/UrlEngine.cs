@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LinkChanger.Data.Contexts;
+using LinkChanger.Models;
 using LinkChanger.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 
@@ -13,8 +14,7 @@ namespace LinkChanger.Services
         private readonly IUrlGenerationStrategy _strategy;
         private readonly IHttpContextAccessor _httpContextProvider;
         private readonly IHasher _hasher;
-        private readonly LinkChangerContext _context;
-        
+        private readonly LinkChangerContext _context;        
 
         public UrlEngine(IUrlGenerationStrategy strategy, IHttpContextAccessor httpContextProvider, IHasher hasher, LinkChangerContext context)
         {
@@ -24,7 +24,7 @@ namespace LinkChanger.Services
             _context = context;            
         }
 
-        public Uri GenerateUrl(Uri url)
+        public UrlEngineResponseModel GenerateUrl(Uri url)
         {
             // generate unique url mapping
             var generatedUrlModel = _strategy.GenerateUniqueUrlMap(url);
@@ -41,15 +41,16 @@ namespace LinkChanger.Services
                     TargetUrlMapHash = generatedUrlModel.UrlMapHash,
                     Created = DateTime.UtcNow,
                     LastAccessed = DateTime.MinValue
-                });
-
-                _context.SaveChanges();
+                });                
             }
             else
             {
-                existingRecord.LastAccessed = DateTime.UtcNow;
-                _context.SaveChanges();
+                existingRecord.LastAccessed = DateTime.UtcNow;                
             }
+
+            // TODO: add error handling to this method
+
+            _context.SaveChanges();
 
             // build target url
             var uriBuilder = new UriBuilder(_httpContextProvider.HttpContext.Request.Scheme,
@@ -57,25 +58,30 @@ namespace LinkChanger.Services
                     (_httpContextProvider.HttpContext.Request.Host.Port.HasValue ? _httpContextProvider.HttpContext.Request.Host.Port.Value : 80),
                     generatedUrlModel.UrlMap);
 
-            return uriBuilder.Uri;
+            return new UrlEngineResponseModel
+            {
+                Url = uriBuilder.Uri
+            };
         }
 
-        public Uri LookupUrl(string map)
+        public UrlEngineResponseModel LookupUrl(string map)
         {
-            var mapHash = _hasher.HashMe(map);            
+            var mapHash = _hasher.HashMe(map);
 
+            var model = new UrlEngineResponseModel();
             var result = _context.UrlMaps.FirstOrDefault(u => u.TargetUrlMapHash == mapHash);
             
             if (result == null)
             {
-                // TODO: make this better?
-                return null;
+                model.ErrorMessage = "No matching url found.";
+                return model;
             }
 
             result.LastAccessed = DateTime.UtcNow;
             _context.SaveChanges();
 
-            return new Uri(result.SourceUrl);
+            model.Url = new Uri(result.SourceUrl);
+            return model;            
         }       
     }
 }

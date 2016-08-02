@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LinkChanger.Models;
 
 namespace LinkChanger.Services.Interfaces
 {
     public interface IUrlEngine
     {
-        Uri GenerateUrl(Uri url);
+        UrlEngineResponseModel GenerateUrl(Uri url);
 
-        Uri LookupUrl(string map);
+        UrlEngineResponseModel LookupUrl(string map);
     }
 }

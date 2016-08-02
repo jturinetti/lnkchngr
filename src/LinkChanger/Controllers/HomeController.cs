@@ -24,10 +24,12 @@ namespace LinkChanger.Controllers
             if (!string.IsNullOrEmpty(id))
             {
                 // lookup URL
-                var url = _engine.LookupUrl(id);
+                var response = _engine.LookupUrl(id);
+
+                // TODO: handle errors here
 
                 // redirect!
-                return Redirect(url.AbsoluteUri);
+                return Redirect(response.Url.AbsoluteUri);
             }            
 
             return View();
@@ -43,8 +45,8 @@ namespace LinkChanger.Controllers
         {
             var validatedUri = _validator.Validate(model.Url);
 
-            var result = _engine.GenerateUrl(validatedUri);
-            model.MappedUrl = result.AbsoluteUri;
+            var response = _engine.GenerateUrl(validatedUri);
+            model.MappedUrl = response.Url.AbsoluteUri;            
 
             return RedirectToAction("Result", model);
         }
