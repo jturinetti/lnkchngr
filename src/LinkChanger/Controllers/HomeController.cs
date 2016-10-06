@@ -43,10 +43,13 @@ namespace LinkChanger.Controllers
         [HttpPost]
         public IActionResult Post(UrlModel model)
         {
-            var validatedUri = _validator.Validate(model.Url);
+            if (ModelState.IsValid)
+            {
+                var validatedUri = _validator.Validate(model.Url);
 
-            var response = _engine.GenerateUrl(validatedUri);
-            model.MappedUrl = response.Url.AbsoluteUri;            
+                var response = _engine.GenerateUrl(validatedUri);
+                model.MappedUrl = response.Url.AbsoluteUri;
+            }                 
 
             return RedirectToAction("Result", model);
         }
