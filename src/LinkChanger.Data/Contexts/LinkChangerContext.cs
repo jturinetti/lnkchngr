@@ -12,7 +12,6 @@ namespace LinkChanger.Data.Contexts
         public LinkChangerContext(DbContextOptions<LinkChangerContext> options)
             : base(options)
         { }
-
         
         public DbSet<UrlMap> UrlMaps { get; set; }        
     }
