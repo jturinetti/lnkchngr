@@ -20,7 +20,7 @@ namespace LinkChanger.Services
         {
             if (uri == null)
             {
-                throw new ArgumentNullException("uri", "A valid Uri must be provided.");
+                throw new ArgumentNullException(nameof(uri), "A valid Uri must be provided.");
             }
 
             var model = new UrlGenerationStrategyModel
