@@ -73,7 +73,7 @@ namespace LinkChanger.Services
             
             if (result == null)
             {
-                model.ErrorMessage = "No matching url found.";
+                model.ErrorMessage = "No matching URL found.";
                 return model;
             }
 
