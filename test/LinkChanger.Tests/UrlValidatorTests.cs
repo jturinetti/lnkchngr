@@ -17,11 +17,19 @@ namespace LinkChanger.Tests
             Assert.Throws<ArgumentNullException>(() => validator.Validate(null));
         }        
 
-        [Theory]
-        [InlineData("")]
+        [Fact]
+        public void UrlValidator_EmptyStringArgument()
+        {
+            IUrlValidator validator = new UrlValidator();
+            Assert.Throws<ArgumentException>(() => validator.Validate(string.Empty));
+        }
+
+        [Theory]        
         [InlineData("justarandomstring")]
-        [InlineData("awebsite.com")]
-        [InlineData("ftp://myftpsite.com")]        
+        [InlineData(".....oh hi there")]
+        [InlineData("http://            derp")]        
+        [InlineData("ftps//blah.crap")]
+        [InlineData("mailto:fakeemail@test.com")]
         public void UrlValidator_InvalidUrl(string url)
         {
             IUrlValidator validator = new UrlValidator();
@@ -30,9 +38,12 @@ namespace LinkChanger.Tests
 
         [Theory]
         [InlineData("http://www.google.com")]
+        [InlineData("http://google.com")]
+        [InlineData("www.mycoolsite.com")]        
         [InlineData("https://www.facebook.com")]
         [InlineData("https://reddit.com/r/all/")]
-        [InlineData("http://awebsite?just=query&string=things")]
+        [InlineData("http://awebsite.net?just=query&string=things")]
+        [InlineData("ftp://myftpsite.com")]
         public void UrlValidator_ValidUrl(string url)
         {
             IUrlValidator validator = new UrlValidator();

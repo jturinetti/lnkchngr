@@ -19,26 +19,34 @@ namespace LinkChanger.Services
             if (url == string.Empty)
             {
                 throw new ArgumentException("A URL must be provided.", nameof(url));
-            }
-
-            if (!url.StartsWith("http"))
-            {
-                url = $"http://{url}";
-            }
-
-            if (!Regex.IsMatch(url, Constants.ValidUrlRegularExpression))
-            {
-                throw new ArgumentException("Invalid URL format.", nameof(url));
             }            
 
-            Uri uri;
+            Uri uri;            
             if (Uri.TryCreate(url, UriKind.Absolute, out uri))
             {
-                return uri;
-            }
+                // no Uri.UriSchemeHttp in .NET Core?  WTF
+                if (uri.Scheme == Constants.HTTP_SCHEME || uri.Scheme == Constants.HTTPS_SCHEME 
+                    || uri.Scheme == Constants.FTP_SCHEME || uri.Scheme == Constants.FTPS_SCHEME)
+                {
+                    return uri;
+                }
+
+                throw new ArgumentException("Invalid Uri scheme.", nameof(url));                
+            }            
             else
             {
-                throw new ArgumentException("Was not able to form Uri for this argument.", nameof(url));
+                // we may need to prepend the http scheme to the URL to get the Uri class to like it
+                // ...if it is a valid URL
+                if (Regex.IsMatch(url, Constants.ValidUrlRegularExpression))
+                {
+                    url = $"http://{url}";
+                    if (Uri.TryCreate(url, UriKind.Absolute, out uri))
+                    {
+                        return uri;
+                    }
+                }                
+
+                throw new ArgumentException("Was not able to form a valid Uri.", nameof(url));
             }            
         }
     }
