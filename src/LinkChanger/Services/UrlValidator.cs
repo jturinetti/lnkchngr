@@ -39,6 +39,7 @@ namespace LinkChanger.Services
                 // ...if it is a valid URL
                 if (Regex.IsMatch(url, Constants.ValidUrlRegularExpression))
                 {
+                    // assume user entered an HTTP url and help them out a bit
                     url = $"http://{url}";
                     if (Uri.TryCreate(url, UriKind.Absolute, out uri))
                     {
