@@ -46,9 +46,7 @@ namespace LinkChanger.Services
             else
             {
                 existingRecord.LastAccessed = DateTime.UtcNow;                
-            }
-
-            // TODO: add error handling to this method
+            }            
 
             _context.SaveChanges();
 
