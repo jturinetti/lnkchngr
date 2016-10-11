@@ -62,6 +62,7 @@ namespace LinkChanger.Tests.Fixtures
             HasherMock.Setup(m => m.HashMe(It.IsAny<string>())).Returns(99999);
 
             DbContextMock = new Mock<LinkChangerContext>();
+            var dbSetMock = new Mock<DbSet<UrlMap>>();
             var urlMapList = new List<UrlMap>()
             {
                 new UrlMap
@@ -74,9 +75,10 @@ namespace LinkChanger.Tests.Fixtures
                     Created = DateTime.UtcNow.AddMonths(-10),
                     LastAccessed = DateTime.UtcNow.AddMonths(-5)
                 }
-            };            
-            
-            // TODO: set up DbContextMock here
+            };
+            dbSetMock.Setup(m => m.ToList()).Returns(urlMapList);
+
+            DbContextMock.Setup(m => m.UrlMaps).Returns(dbSetMock.Object);
         }
     }
 }
