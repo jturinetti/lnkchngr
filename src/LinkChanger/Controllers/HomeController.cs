@@ -24,12 +24,14 @@ namespace LinkChanger.Controllers
             if (!string.IsNullOrEmpty(id))
             {
                 // lookup URL
-                var response = _engine.LookupUrl(id);
+                var response = _engine.LookupUrl(id);                
 
-                // TODO: handle errors here
+                if (response.Url != null)
+                {
+                    return Redirect(response.Url.AbsoluteUri);
+                }
 
-                // redirect!
-                return Redirect(response.Url.AbsoluteUri);
+                // TODO: better job of handling service-layer error messages getting to front-end
             }            
 
             return View();

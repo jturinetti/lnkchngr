@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using LinkChanger.Data.Contexts;
 using LinkChanger.Data.Entities;
 using LinkChanger.Models;
+using LinkChanger.Services;
 using LinkChanger.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,12 @@ namespace LinkChanger.Tests.Fixtures
 {
     public class UrlEngineFixture
     {
+        public UrlEngine UrlEngine
+        {
+            get;
+            private set;
+        }
+
         public Mock<IUrlGenerationStrategy> UrlGenerationStrategyMock
         {
             get;
@@ -59,9 +66,8 @@ namespace LinkChanger.Tests.Fixtures
             HttpContextProviderMock.Setup(m => m.HttpContext).Returns(httpContextMock.Object);
 
             HasherMock = new Mock<IHasher>();
-            HasherMock.Setup(m => m.HashMe(It.IsAny<string>())).Returns(99999);
+            HasherMock.Setup(m => m.HashMe(It.IsAny<string>())).Returns(99999);            
 
-            DbContextMock = new Mock<LinkChangerContext>();
             var urlMapList = new List<UrlMap>()
             {
                 new UrlMap
@@ -74,9 +80,21 @@ namespace LinkChanger.Tests.Fixtures
                     Created = DateTime.UtcNow.AddMonths(-10),
                     LastAccessed = DateTime.UtcNow.AddMonths(-5)
                 }
-            };            
-            
-            // TODO: set up DbContextMock here
+            }.AsQueryable();
+
+            DbContextMock = new Mock<LinkChangerContext>();
+            var dbSetMock = new Mock<DbSet<UrlMap>>();
+            dbSetMock.As<IQueryable<UrlMap>>().Setup(m => m.Provider).Returns(urlMapList.Provider);
+            dbSetMock.As<IQueryable<UrlMap>>().Setup(m => m.ElementType).Returns(urlMapList.ElementType);
+            dbSetMock.As<IQueryable<UrlMap>>().Setup(m => m.Expression).Returns(urlMapList.Expression);
+            dbSetMock.As<IQueryable<UrlMap>>().Setup(m => m.GetEnumerator()).Returns(urlMapList.GetEnumerator());
+
+            DbContextMock.Setup(m => m.UrlMaps).Returns(dbSetMock.Object);
+
+            UrlEngine = new UrlEngine(UrlGenerationStrategyMock.Object,
+                HttpContextProviderMock.Object,
+                HasherMock.Object,
+                DbContextMock.Object);                
         }
     }
 }
