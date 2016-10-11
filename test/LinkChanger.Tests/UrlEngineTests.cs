@@ -9,7 +9,7 @@ namespace LinkChanger.Tests
 {
     public class UrlEngineTests : IClassFixture<UrlEngineFixture>
     {
-        private readonly UrlEngineFixture _testContext;
+        private readonly UrlEngineFixture _testContext;        
 
         public UrlEngineTests(UrlEngineFixture testContext)
         {
@@ -19,19 +19,19 @@ namespace LinkChanger.Tests
         [Fact]
         public void GenerateUrl_NullArgument()
         {
-            // TODO
+            Assert.Throws<ArgumentNullException>(() => _testContext.UrlEngine.GenerateUrl(null));
         }
 
         [Fact]
         public void LookupUrl_NullArgument()
         {
-            // TODO
+            Assert.Throws<ArgumentNullException>(() => _testContext.UrlEngine.LookupUrl(null));
         }
 
         [Fact]
         public void LookupUrl_EmptyArgument()
         {
-            // TODO
+            Assert.Throws<ArgumentException>(() => _testContext.UrlEngine.LookupUrl(string.Empty));
         }
     }
 }

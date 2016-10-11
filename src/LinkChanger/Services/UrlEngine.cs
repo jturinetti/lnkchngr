@@ -24,10 +24,15 @@ namespace LinkChanger.Services
             _context = context;            
         }
 
-        public UrlEngineResponseModel GenerateUrl(Uri url)
+        public UrlEngineResponseModel GenerateUrl(Uri uri)
         {
+            if (uri == null)
+            {
+                throw new ArgumentNullException(nameof(uri));
+            }
+
             // generate unique url mapping
-            var generatedUrlModel = _strategy.GenerateUniqueUrlMap(url);
+            var generatedUrlModel = _strategy.GenerateUniqueUrlMap(uri);
 
             // see if url already exists in database based on generated hash
             var existingRecord = _context.UrlMaps.FirstOrDefault(u => u.SourceUrlMapHash == generatedUrlModel.SourceUrlHash);
@@ -62,9 +67,19 @@ namespace LinkChanger.Services
             };
         }
 
-        public UrlEngineResponseModel LookupUrl(string map)
+        public UrlEngineResponseModel LookupUrl(string url)
         {
-            var mapHash = _hasher.HashMe(map);
+            if (url == null)
+            {
+                throw new ArgumentNullException(nameof(url));
+            }
+
+            if (url == string.Empty)
+            {
+                throw new ArgumentException("A URL must be provided.", nameof(url));
+            }
+
+            var mapHash = _hasher.HashMe(url);
 
             var model = new UrlEngineResponseModel();
             var result = _context.UrlMaps.FirstOrDefault(u => u.TargetUrlMapHash == mapHash);
@@ -79,7 +94,7 @@ namespace LinkChanger.Services
             _context.SaveChanges();
 
             model.Url = new Uri(result.SourceUrl);
-            return model;            
+            return model;
         }       
     }
 }
