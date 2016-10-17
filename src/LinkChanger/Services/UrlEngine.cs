@@ -44,13 +44,12 @@ namespace LinkChanger.Services
                     SourceUrlMapHash = generatedUrlModel.SourceUrlHash,
                     TargetUrlMap = generatedUrlModel.UrlMap,
                     TargetUrlMapHash = generatedUrlModel.UrlMapHash,
-                    Created = DateTime.UtcNow,
-                    LastAccessed = DateTime.MinValue
+                    Created = DateTime.UtcNow                    
                 });                
             }
             else
             {
-                existingRecord.LastAccessed = DateTime.UtcNow;                
+                existingRecord.LastAccessed = DateTime.UtcNow;
             }            
 
             _context.SaveChanges();
