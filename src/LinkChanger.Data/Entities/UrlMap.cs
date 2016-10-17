@@ -23,6 +23,6 @@ namespace LinkChanger.Data.Entities
 
         public DateTime Created { get; set; }
 
-        public DateTime LastAccessed { get; set; }
+        public DateTime? LastAccessed { get; set; }
     }
 }
