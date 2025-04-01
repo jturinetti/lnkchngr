@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using lnkchngr.Models;
+﻿using lnkchngr.Models;
 using lnkchngr.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
 
 namespace lnkchngr.Services
 {
@@ -13,7 +8,7 @@ namespace lnkchngr.Services
         private readonly IUrlGenerationStrategy _strategy;
         private readonly IHttpContextAccessor _httpContextProvider;
         private readonly IHasher _hasher;
-        // private readonly LinkChangerContext _context;        
+        // private readonly LinkChangerContext _context;
 
         public UrlEngine(IUrlGenerationStrategy strategy, IHttpContextAccessor httpContextProvider, IHasher hasher) //, LinkChangerContext context)
         {

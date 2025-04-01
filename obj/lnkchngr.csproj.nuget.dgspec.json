@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\Code\\GitHub\\lnkchngr\\lnkchngr.csproj": {}
+    "f:\\Code\\GitHub\\lnkchngr\\lnkchngr.csproj": {}
   },
   "projects": {
-    "F:\\Code\\GitHub\\lnkchngr\\lnkchngr.csproj": {
+    "f:\\Code\\GitHub\\lnkchngr\\lnkchngr.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\Code\\GitHub\\lnkchngr\\lnkchngr.csproj",
+        "projectUniqueName": "f:\\Code\\GitHub\\lnkchngr\\lnkchngr.csproj",
         "projectName": "lnkchngr",
-        "projectPath": "F:\\Code\\GitHub\\lnkchngr\\lnkchngr.csproj",
+        "projectPath": "f:\\Code\\GitHub\\lnkchngr\\lnkchngr.csproj",
         "packagesPath": "C:\\Users\\jerem\\.nuget\\packages\\",
-        "outputPath": "F:\\Code\\GitHub\\lnkchngr\\obj\\",
+        "outputPath": "f:\\Code\\GitHub\\lnkchngr\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jerem\\AppData\\Roaming\\NuGet\\NuGet.Config"
