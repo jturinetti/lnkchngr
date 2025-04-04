@@ -1,7 +1,0 @@
-#:E:\Code\GitHub\lnkchngr\src\LinkChanger.Data\LinkChanger.Data.xproj
-#:E:\Code\GitHub\lnkchngr\src\LinkChanger\LinkChanger.xproj
-E:\Code\GitHub\lnkchngr\src\LinkChanger\LinkChanger.xproj|E:\Code\GitHub\lnkchngr\src\LinkChanger.Data\LinkChanger.Data.xproj
-#:E:\Code\GitHub\lnkchngr\test\LinkChanger.Tests\LinkChanger.Tests.xproj
-E:\Code\GitHub\lnkchngr\test\LinkChanger.Tests\LinkChanger.Tests.xproj|E:\Code\GitHub\lnkchngr\src\LinkChanger\LinkChanger.xproj
-E:\Code\GitHub\lnkchngr\test\LinkChanger.Tests\LinkChanger.Tests.xproj|E:\Code\GitHub\lnkchngr\src\LinkChanger.Data\LinkChanger.Data.xproj
-E:\Code\GitHub\lnkchngr\src\LinkChanger\LinkChanger.xproj|E:\Code\GitHub\lnkchngr\src\LinkChanger.Data\LinkChanger.Data.xproj
