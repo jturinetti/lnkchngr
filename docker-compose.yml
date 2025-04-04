@@ -1,0 +1,6 @@
+services:
+  lnkchngr:
+    image: ${DOCKER_REGISTRY-}lnkchngr
+    build:
+      context: .
+      dockerfile: lnkchngr/Dockerfile
